@@ -1,4 +1,4 @@
-package com.c7z.myapplication.setting
+package com.c7z.myapplication.user
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.c7z.myapplication.databinding.FragmentSettingBinding
 
-class SettingFragment : Fragment() {
+class UserFragment : Fragment() {
     private lateinit var binding : FragmentSettingBinding
 
     override fun onCreateView(
