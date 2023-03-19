@@ -1,0 +1,213 @@
+Index: app/src/main/java/com/c7z/myapplication/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.c7z.myapplication\n\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport com.c7z.myapplication.databinding.ActivityMainBinding\n\nclass MainActivity : AppCompatActivity() {\n    private lateinit var binding : ActivityMainBinding\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        binding = ActivityMainBinding.inflate(layoutInflater)\n\n        setContentView(binding.root)\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/c7z/myapplication/MainActivity.kt b/app/src/main/java/com/c7z/myapplication/MainActivity.kt
+--- a/app/src/main/java/com/c7z/myapplication/MainActivity.kt	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/app/src/main/java/com/c7z/myapplication/MainActivity.kt	(date 1679059370192)
+@@ -2,14 +2,40 @@
+ 
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import androidx.fragment.app.Fragment
+ import com.c7z.myapplication.databinding.ActivityMainBinding
++import com.c7z.myapplication.group.GroupFragment
++import com.c7z.myapplication.home.HomeFragment
++import com.c7z.myapplication.map.MapFragment
++import com.c7z.myapplication.setting.SettingFragment
++import com.c7z.myapplication.todo.TodoFragment
+ 
+ class MainActivity : AppCompatActivity() {
+     private lateinit var binding : ActivityMainBinding
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         binding = ActivityMainBinding.inflate(layoutInflater)
+-
+         setContentView(binding.root)
++
++        initBottomNavigation()
++    }
++
++    private fun initBottomNavigation() {
++        binding.mainLayoutBottomNav.setOnItemSelectedListener {
++            when(it.itemId) {
++                R.id.main_bottom_nav_btn_home -> setFragment(HomeFragment())
++                R.id.main_bottom_nav_btn_group -> setFragment(GroupFragment())
++                R.id.main_bottom_nav_btn_map -> setFragment(MapFragment())
++                R.id.main_bottom_nav_btn_todo -> setFragment(TodoFragment())
++                R.id.main_bottom_nav_btn_setting -> setFragment(SettingFragment())
++            }
++            false
++        }
++
++        binding.mainLayoutBottomNav.selectedItemId = R.id.main_bottom_nav_btn_home
++    }
++
++    private fun setFragment(fragment : Fragment) {
++        supportFragmentManager.beginTransaction().replace(R.id.main_layout_container, fragment).commit()
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".MainActivity\">\n\n    <TextView\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Hello World!\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\" />\n\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1679059370196)
+@@ -6,13 +6,37 @@
+     android:layout_height="match_parent"
+     tools:context=".MainActivity">
+ 
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello World!"
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:id="@+id/main_layout_toolbar"
++        android:layout_width="match_parent"
++        android:layout_height="?actionBarSize"
++        app:layout_constraintTop_toTopOf="parent" >
++
++        <ImageView
++            android:id="@+id/main_btn_filter"
++            android:layout_width="20dp"
++            android:layout_height="20dp"
++            android:src="@drawable/ic_launcher_background"
++            android:layout_marginEnd="15dp"
++            app:layout_constraintTop_toTopOf="parent"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent" />
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
++
++    <FrameLayout
++        android:id="@+id/main_layout_container"
++        android:layout_width="match_parent"
++        android:layout_height="0dp"
++        app:layout_constraintTop_toBottomOf="@id/main_layout_toolbar"
++        app:layout_constraintBottom_toTopOf="@id/main_layout_bottom_nav" />
++
++    <com.google.android.material.bottomnavigation.BottomNavigationView
++        android:id="@+id/main_layout_bottom_nav"
++        android:layout_width="match_parent"
++        android:layout_height="?actionBarSize"
+         app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++        app:itemTextColor="@color/black"
++        app:menu="@menu/main_bottom_nav_menu"/>
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\n    id 'com.android.application'\n    id 'org.jetbrains.kotlin.android'\n}\n\nandroid {\n    namespace 'com.c7z.myapplication'\n    compileSdk 32\n\n    defaultConfig {\n        applicationId \"com.c7z.myapplication\"\n        minSdk 30\n        targetSdk 32\n        versionCode 1\n        versionName \"1.0\"\n\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n\n    buildFeatures {\n        viewBinding = true\n    }\n\n    buildTypes {\n        release {\n            minifyEnabled false\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n        }\n    }\n    compileOptions {\n        sourceCompatibility JavaVersion.VERSION_1_8\n        targetCompatibility JavaVersion.VERSION_1_8\n    }\n    kotlinOptions {\n        jvmTarget = '1.8'\n    }\n}\n\ndependencies {\n\n    implementation 'androidx.core:core-ktx:1.7.0'\n    implementation 'androidx.appcompat:appcompat:1.6.1'\n    implementation 'com.google.android.material:material:1.8.0'\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\n    testImplementation 'junit:junit:4.13.2'\n    androidTestImplementation 'androidx.test.ext:junit:1.1.5'\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/app/build.gradle	(date 1679059370192)
+@@ -5,12 +5,12 @@
+ 
+ android {
+     namespace 'com.c7z.myapplication'
+-    compileSdk 32
++    compileSdk 33
+ 
+     defaultConfig {
+         applicationId "com.c7z.myapplication"
+         minSdk 30
+-        targetSdk 32
++        targetSdk 33
+         versionCode 1
+         versionName "1.0"
+ 
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"testRunner\" value=\"GRADLE\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n          </set>\n        </option>\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/.idea/gradle.xml	(date 1679059370190)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/.idea/misc.xml	(date 1679059370191)
+@@ -1,5 +1,13 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="DesignSurface">
++    <option name="filePathToZoomLevelMap">
++      <map>
++        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2504528985507246" />
++        <entry key="app/src/main/res/menu/main_bottom_nav_menu.xml" value="0.3958333333333333" />
++      </map>
++    </option>
++  </component>
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Fri Mar 17 21:19:40 KST 2023\ndistributionBase=GRADLE_USER_HOME\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-7.5-rc-2-bin.zip\ndistributionPath=wrapper/dists\nzipStorePath=wrapper/dists\nzipStoreBase=GRADLE_USER_HOME\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1679059370204)
+@@ -1,6 +1,6 @@
+ #Fri Mar 17 21:19:40 KST 2023
+ distributionBase=GRADLE_USER_HOME
+-distributionUrl=https\://services.gradle.org/distributions/gradle-7.5-rc-2-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-7.5-bin.zip
+ distributionPath=wrapper/dists
+ zipStorePath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\nplugins {\n    id 'com.android.application' version '7.4.0-alpha07' apply false\n    id 'com.android.library' version '7.4.0-alpha07' apply false\n    id 'org.jetbrains.kotlin.android' version '1.6.21' apply false\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 3469e492743edec4fd196e38ec8ef35c2ef7e428)
++++ b/build.gradle	(date 1679059370203)
+@@ -1,6 +1,6 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+-    id 'com.android.application' version '7.4.0-alpha07' apply false
+-    id 'com.android.library' version '7.4.0-alpha07' apply false
++    id 'com.android.application' version '7.4.2' apply false
++    id 'com.android.library' version '7.4.2' apply false
+     id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
+ }
+\ No newline at end of file

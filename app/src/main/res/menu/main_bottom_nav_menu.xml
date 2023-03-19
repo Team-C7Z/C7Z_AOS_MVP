@@ -3,22 +3,27 @@
 
     <item
         android:id="@+id/main_bottom_nav_btn_home"
-        android:title="홈" />
+        android:icon="@drawable/ic_bottom_nav_calendar"
+        android:title="캘린더" />
 
     <item
         android:id="@+id/main_bottom_nav_btn_map"
+        android:icon="@drawable/ic_bottom_nav_map"
         android:title="지도" />
 
     <item
         android:id="@+id/main_bottom_nav_btn_group"
+        android:icon="@drawable/ic_bottom_nav_group"
         android:title="모임" />
 
     <item
         android:id="@+id/main_bottom_nav_btn_todo"
+        android:icon="@drawable/ic_bottom_nav_todo"
         android:title="할일" />
 
     <item
-        android:id="@+id/main_bottom_nav_btn_setting"
-        android:title="설정" />
+        android:id="@+id/main_bottom_nav_btn_user"
+        android:icon="@drawable/ic_bottom_nav_user"
+        android:title="MY" />
 
 </menu>

@@ -1,42 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- DataBinding을 사용할 때는 layout 태그로 감싸주셔야 합니다! -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <data>
+        <!-- XML에서 필요한 속성은 이렇게 정의합니다! 클래스 뿐 아니라 데이터타입 (String, Int)등도 가능합니다. -->
+        <variable
+            name="activity"
+            type="com.c7z.myapplication.MainActivity" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_layout_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:layout_constraintTop_toTopOf="parent" >
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-        <ImageView
-            android:id="@+id/main_btn_filter"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintTop_toTopOf="parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/main_btn_filter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                Common_setCircleImage="@{activity.userProfileImage()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/main_toolbar_btn_hamburger"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_common_hamburger"
+                android:layout_marginEnd="22dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_common_alarm"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/main_toolbar_btn_hamburger" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/main_layout_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/main_layout_bottom_nav"
+            app:layout_constraintTop_toBottomOf="@id/main_layout_toolbar" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/main_layout_bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:labelVisibilityMode="labeled"
+            app:itemTextColor="@color/selector_bottom_navigation"
+            app:itemIconTint="@color/selector_bottom_navigation"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:menu="@menu/main_bottom_nav_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/main_layout_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/main_layout_toolbar"
-        app:layout_constraintBottom_toTopOf="@id/main_layout_bottom_nav" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_layout_bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:itemTextColor="@color/black"
-        app:menu="@menu/main_bottom_nav_menu"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
