@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.c7z.myapplication.user.UserFragment" />
+
+        <variable
+            name="user"
+            type="com.c7z.myapplication.user.model.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/fg_user_iv_user_profile"
+            Common_setCircleImage="@{user.profileImage}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{user.userNickName}"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/fg_user_iv_user_profile"
+            app:layout_constraintStart_toEndOf="@id/fg_user_iv_user_profile"
+            app:layout_constraintTop_toTopOf="@id/fg_user_iv_user_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_user_e9e9e9_32"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="7dp"
+            android:text="프로필 수정"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/fg_user_iv_user_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fg_user_iv_user_profile" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fg_user_rv_user_menu"
+            User_Menu="@{fragment.menuAdapter()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/fg_user_iv_user_profile"
+            app:spanCount="4"
+            tools:listitem="@layout/item_user_rv_user_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
