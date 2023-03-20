@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.c7z.myapplication.R
 import com.c7z.myapplication.databinding.FragmentUserBinding
+import com.c7z.myapplication.user.adapter.UserGroupAdapter
 import com.c7z.myapplication.user.adapter.UserMenuAdapter
 import com.c7z.myapplication.user.model.User
 import com.c7z.myapplication.user.model.UserMenuItem
@@ -29,6 +30,7 @@ class UserFragment : Fragment() {
     }
 
     fun menuAdapter() = UserMenuAdapter(returnUserMenuData(), ::onMenuClicked)
+    fun groupAdapter() = UserGroupAdapter(returnUserGroupData())
 
     private fun onMenuClicked(menuTitle : String) = Toast.makeText(requireContext(), "$menuTitle 클릭됨!", Toast.LENGTH_SHORT).show()
 
@@ -48,4 +50,9 @@ class UserFragment : Fragment() {
             UserMenuItem(R.drawable.ic_user_notion, "공지사항"),
             UserMenuItem(R.drawable.ic_user_setting, "설정")
         )
+
+    private fun returnUserGroupData() : List<String> =
+        listOf("춘칠즈 모임", "안드로이드 모임", "서버 모임", "iOS모임", "디자이너 모임")
+
+
 }
