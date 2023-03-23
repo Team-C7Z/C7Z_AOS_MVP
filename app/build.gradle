@@ -4,6 +4,9 @@ plugins {
     id 'kotlin-kapt'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.c7z.myapplication'
     compileSdk 33
@@ -24,9 +27,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            // naver client id
+            resValue "string", "NAVER_CLIENT_ID", properties["NAVER_CLIENT_ID"]
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // naver client id
+            resValue "string", "NAVER_CLIENT_ID", properties["NAVER_CLIENT_ID"]
         }
     }
     compileOptions {
@@ -58,4 +67,6 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.5.0'
     implementation 'androidx.fragment:fragment-ktx:1.5.0'
 
+    // 네이버 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.16.2'
 }
