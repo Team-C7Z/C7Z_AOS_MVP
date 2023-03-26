@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.c7z.myapplication.group.adapter.GroupAdapter
 import com.c7z.myapplication.home.adpter.CalendarAdapter
 import com.c7z.myapplication.todo.adapter.TodoTabAdapter
 import com.c7z.myapplication.user.adapter.UserGroupAdapter
@@ -38,5 +39,10 @@ fun RecyclerView.setAdapter (adapter : UserMenuAdapter) {
 
 @BindingAdapter("User_Group")
 fun RecyclerView.setAdapter(adapter : UserGroupAdapter) {
+    this.adapter = adapter
+}
+
+@BindingAdapter("Group_Item")
+fun RecyclerView.setGroup(adapter: GroupAdapter) {
     this.adapter = adapter
 }
