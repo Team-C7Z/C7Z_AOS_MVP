@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="attendingGroup"
+            type="com.c7z.myapplication.group.model.GroupItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp">
+
+        <ImageView
+            android:id="@+id/item_group_rv_group_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_group_f6f6f6_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/bg_group_f6f6f6_16"/>
+
+        <TextView
+            android:id="@+id/item_group_rv_group_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="3dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_group_category_828282_6"
+            android:text="@{attendingGroup.groupCategory}"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/item_group_rv_group_image"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="스터디"/>
+
+        <TextView
+            android:id="@+id/item_group_rv_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{attendingGroup.groupName}"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/item_group_rv_group_category"
+            app:layout_constraintTop_toTopOf="@id/item_group_rv_group_category"
+            app:layout_constraintBottom_toBottomOf="@id/item_group_rv_group_category"
+            tools:text="춘칠즈"/>
+        
+        <ImageView
+            android:id="@+id/item_group_rv_member_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ic_group_member_profile"
+            app:layout_constraintTop_toBottomOf="@id/item_group_rv_group_name"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:background="@drawable/ic_group_member_profile"/>
+
+        <ImageView
+            android:id="@+id/item_group_rv_member"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_group_member"
+            app:layout_constraintStart_toEndOf="@id/item_group_rv_member_profile"
+            app:layout_constraintTop_toTopOf="@id/item_group_rv_member_profile"
+            app:layout_constraintBottom_toBottomOf="@id/item_group_rv_member_profile" />
+
+        <TextView
+            android:id="@+id/item_group_rv_member_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@{attendingGroup.groupMemberCount}"
+            android:textSize="12sp"
+            android:textColor="@color/color_828282"
+            app:layout_constraintStart_toEndOf="@id/item_group_rv_member"
+            app:layout_constraintTop_toTopOf="@id/item_group_rv_member"
+            app:layout_constraintBottom_toBottomOf="@id/item_group_rv_member"
+            tools:text="7"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
